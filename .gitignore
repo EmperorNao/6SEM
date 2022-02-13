@@ -1,0 +1,23 @@
+*.doc
+*.docx
+*/.idea/
+*.pdf
+*.pyc
+*./__pycache__/
+
+
+# CS
+
+/CS/dos/
+/CS/dosdir/
+/CS/LR/
+
+# RT
+
+/RT/Garmin/
+/RT/Literature/
+
+
+
+
+
