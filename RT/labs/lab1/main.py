@@ -3,17 +3,16 @@ from localisation import localise
 
 if __name__ == '__main__':
 
-    fname = r'P:\D\6SEM\РеальноеВремя\labs\lab1\ABPO00MDG_R_20200010000_01D_GN.rnx'
-    satellite = 'G10'
-    ts = '2020 01 01 00 00 00'
+    fname = r'.\ABPO00MDG_R_20200010000_01D_GN.rnx'
+    satellite = 'G14'
+    ts = '2020 01 01 02 00 00'
 
-    data = load_file(fname, satellite, ts)
-    localise(data)
+    try:
+        data = load_file(fname, satellite, ts)
+        localise(data)
 
-    print(data['X_SVK'])
-    print(data['Y_SVK'])
-    print(data['Z_SVK'])
+        print(f"X = {data['X_SVK']}, Y = {data['Y_SVK']}, Z = {data['Z_SVK']}\n"
+              f"X_speed = {data['grad_X_SVK']}, Y_speed = {data['grad_Y_SVK']}, Z_speed = {data['grad_Z_SVK']}")
 
-    print(data['grad_X_SVK'])
-    print(data['grad_Y_SVK'])
-    print(data['grad_Z_SVK'])
+    except BaseException as e:
+        print(f"Error = {e}")
