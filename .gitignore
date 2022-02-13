@@ -1,9 +1,10 @@
 *.doc
 *.docx
-*/.idea/
+*.idea/
 *.pdf
 *.pyc
 *./__pycache__/
+*.xml
 
 
 # CS
