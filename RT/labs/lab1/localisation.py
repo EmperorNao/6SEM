@@ -4,7 +4,7 @@ from math import sqrt, sin, cos, atan2
 
 def time_to_GPS(time) -> int:
 
-    return time['t_oe'] + time['hour'] * 3600 + time['minute'] * 60 + time['second']
+    return int(time['t_oe'] // 86400) * 86400 + time['hour'] * 3600 + time['minute'] * 60 + time['second']
 
 
 def localise(args):
@@ -18,6 +18,8 @@ def localise(args):
     args['t'] = time_to_GPS(args['time'])
 
     args['t_k'] = args['t'] - args['t_oe']
+    args['t_k'] = args['t'] - args['t_oe_mod']
+
     if args['t_k'] > 302400:
         args['t_k'] = args['t_k'] - 604800
     elif args['t_k'] < -302400:

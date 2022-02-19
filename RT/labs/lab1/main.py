@@ -5,7 +5,7 @@ if __name__ == '__main__':
 
     fname = r'.\ABPO00MDG_R_20200010000_01D_GN.rnx'
     satellite = 'G14'
-    ts = '2020 01 01 04 00 00'
+    ts = '2020 01 01 02 00 00'
 
     try:
         data = load_file(fname, satellite, ts)
