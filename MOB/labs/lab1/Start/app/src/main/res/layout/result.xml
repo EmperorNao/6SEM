@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/imageButton1"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/leftleft"
+                tools:srcCompat="@drawable/leftleft"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:id="@+id/imageButton2"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/imageButton1"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/logo"
+                tools:srcCompat="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/imageButton4"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/gps"
+                tools:srcCompat="@drawable/gps"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/imageButton3"/>
+
+            <ImageView
+                android:id="@+id/imageButton3"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/speech"
+                tools:srcCompat="@drawable/speech"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+        <View
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:layout_below="@id/topLayout"/>
+
+        <LinearLayout
+            android:id="@+id/clickable_shit"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_below="@id/topLine">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/left"
+                tools:srcCompat="@drawable/left" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/right"
+                tools:srcCompat="@drawable/right" />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_shit"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Подобрано для вас"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/clickable_shit">
+        </TextView>
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_below="@id/text_shit">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="35dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <ImageView
+                        android:id="@+id/mainimg"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/tea"
+                        tools:srcCompat="@drawable/tea"></ImageView>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/heart"
+                        tools:srcCompat="@drawable/heart"></ImageView>
+
+                    <TextView
+                        android:id="@+id/shit_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_below="@id/mainimg"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="290 Р"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/mainimg"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/teleg"
+                        tools:srcCompat="@drawable/teleg"></ImageView>
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/shit_cost"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Чай Maitre 'Exclusive Collection', набор ассор..."
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/description"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/starts"
+                        tools:srcCompat="@drawable/starts"></ImageView>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/description"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:paddingLeft="13dp">
+
+                    <ImageView
+                        android:id="@+id/mainimg2"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/banka"
+                        tools:srcCompat="@drawable/banka"></ImageView>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/heart"
+                        tools:srcCompat="@drawable/heart"></ImageView>
+
+                    <TextView
+                        android:id="@+id/shit_cost2"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_below="@id/mainimg2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="130 Р"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/mainimg2"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/teleg"
+                        tools:srcCompat="@drawable/teleg"></ImageView>
+
+                    <TextView
+                        android:id="@+id/description2"
+                        android:layout_width="170dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/shit_cost2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Влажный корм для кошек Gemon Cat Sterilised 'П"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/description2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/starts"
+                        tools:srcCompat="@drawable/starts"></ImageView>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/description2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="35dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <ImageView
+                        android:id="@+id/mainimg"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/cofe"
+                        tools:srcCompat="@drawable/cofe"></ImageView>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/heart"
+                        tools:srcCompat="@drawable/heart"></ImageView>
+
+                    <TextView
+                        android:id="@+id/shit_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_below="@id/mainimg"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="290 Р"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/mainimg"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/teleg"
+                        tools:srcCompat="@drawable/teleg"></ImageView>
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/shit_cost"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Я НЕНАВИЖУ АНДРОИД РАЗРАБОТКУ"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/description"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/starts"
+                        tools:srcCompat="@drawable/starts"></ImageView>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/description"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:paddingLeft="13dp">
+
+                    <ImageView
+                        android:id="@+id/mainimg2"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/zhir"
+                        tools:srcCompat="@drawable/zhir"></ImageView>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/heart"
+                        tools:srcCompat="@drawable/heart"></ImageView>
+
+                    <TextView
+                        android:id="@+id/shit_cost2"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_below="@id/mainimg2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="130 Р"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/mainimg2"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/teleg"
+                        tools:srcCompat="@drawable/teleg"></ImageView>
+
+                    <TextView
+                        android:id="@+id/description2"
+                        android:layout_width="170dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/shit_cost2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Я СКОРО УМРУ ИЗ_ЗА АНДРОИДА"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/description2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="-1dp"
+                        app:srcCompat="@drawable/starts"
+                        tools:srcCompat="@drawable/starts"></ImageView>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/description2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+
+        </TableLayout>
+
+        </ScrollView>
+
+        <View
+            android:id="@+id/botLine"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:layout_above="@id/botLayout"/>
+        <LinearLayout
+            android:id="@+id/botLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imageButton5"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/main"
+                    tools:srcCompat="@drawable/main" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/imageButton5"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:text="Главная"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imageButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/cat"
+                    tools:srcCompat="@drawable/cat" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/imageButton6"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="Каталог"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imageButton7"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/all"
+                    tools:srcCompat="@drawable/all" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/imageButton7"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:text="0 р"></TextView>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageButton8"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                app:srcCompat="@drawable/fav"
+                tools:srcCompat="@drawable/fav" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/imageButton8"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Избранное"></TextView>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/imageButton9"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/profile"
+                    tools:srcCompat="@drawable/profile" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/imageButton9"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:text="Профиль"></TextView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
