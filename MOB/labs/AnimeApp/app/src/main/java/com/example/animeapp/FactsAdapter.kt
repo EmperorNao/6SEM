@@ -19,13 +19,17 @@ class FactsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 }
 
 
-class FactsAdapter(facts: Array<String>): RecyclerView.Adapter<FactsViewHolder>() {
+class FactsAdapter(facts: MutableList<String>): RecyclerView.Adapter<FactsViewHolder>() {
 
-    var anime_facts: Array<String> = emptyArray()
+    var anime_facts: MutableList<String> = mutableListOf()
 
         init {
             anime_facts = facts
         }
+
+    fun addData(fact: String) {
+        anime_facts.add(fact)
+    }
 
     override fun getItemCount(): Int {
         return anime_facts.size

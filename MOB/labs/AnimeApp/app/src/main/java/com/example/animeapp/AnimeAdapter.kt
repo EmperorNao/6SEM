@@ -1,5 +1,6 @@
 package com.example.animeapp
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,9 +28,9 @@ class AnimeViewHolder(itemView: View, private val onItemClicked: (position: Int)
 }
 
 
-class AnimeAdapter(_anime: Array<Anime>, private val onItemClicked: (position: Int) -> Unit): RecyclerView.Adapter<AnimeViewHolder>() {
+class AnimeAdapter(_anime: MutableList<Anime>, private val onItemClicked: (position: Int) -> Unit): RecyclerView.Adapter<AnimeViewHolder>() {
 
-    var anime: Array<Anime> = emptyArray()
+    var anime: MutableList<Anime> = mutableListOf<Anime>()
 
     init {
         anime = _anime
@@ -37,6 +38,10 @@ class AnimeAdapter(_anime: Array<Anime>, private val onItemClicked: (position: I
 
     override fun getItemCount(): Int {
         return anime.size
+    }
+
+    fun addData(anime_item: Anime) {
+        anime.add(anime_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
@@ -58,14 +63,10 @@ class AnimeAdapter(_anime: Array<Anime>, private val onItemClicked: (position: I
 
         val t: Anime = anime.get(position)
         val name: String = t.get_name()
-        val id = t.get_image_id()
+        val image: Bitmap = t.get_image()
 
-        //val draw = Drawable.createFromRes
-        if (id != null) {
-            holder.animeImageView?.setImageResource(id)
-        }
-        holder.animeTextView?.setText(name)
-        //holder.animeImageView?.setImageBitmap(bmImg)
+        holder.animeImageView?.setImageBitmap(image)
+        holder.animeTextView?.setText(name.split('_').map { it.capitalize() }.joinToString(" "))
 
     }
 

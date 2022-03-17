@@ -22,7 +22,6 @@
         android:textColor="@color/black"
         android:layout_alignParentBottom="true"
         android:fontFamily="serif"
-        android:textStyle="italic"
         >
     </TextView>
 

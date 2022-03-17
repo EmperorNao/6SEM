@@ -1,24 +1,29 @@
 package com.example.animeapp
 
+import android.graphics.Bitmap
 
-class Anime(_id: Int, name: String, image_id: Int) {
 
-    var anime_name: String = ""
-    var anime_image_id: Int = 0
+class Anime(_id: Int, name: String) {
+
+    var name: String = ""
+    var image : Bitmap? = null
     var id: Int = 0
 
     init {
         id = _id
-        anime_name = name
-        anime_image_id = image_id
+        this.name = name
     }
 
     fun get_name(): String {
-        return anime_name
+        return name
     }
 
-    fun get_image_id(): Int {
-        return anime_image_id
+    fun set_image(_image: Bitmap) {
+        image = _image
+    }
+
+    fun get_image(): Bitmap {
+        return image!!
     }
 
     fun get_id(): Int {

@@ -11,9 +11,18 @@
         android:layout_height="wrap_content"
         android:textStyle="normal"
         android:textSize="@dimen/facts_text_size"
+        android:textColor="@color/black"
         android:padding="5dp"
         tools:ignore="MissingConstraints">
 
     </TextView>
+
+    <View
+        android:id="@+id/topLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:drawable/alert_dark_frame"
+        tools:ignore="MissingConstraints"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
