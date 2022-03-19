@@ -47,38 +47,6 @@ class AnimeActivity : AppCompatActivity() {
     }
 
 
-    private fun downloadImage(anime_item: Anime, url: String) {
-
-        val request = Request.Builder()
-            .url(url)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                    anime_item.set_image(BitmapFactory.decodeStream(response.body!!.byteStream()))
-                    adapter.addData(anime_item)
-
-                    this@AnimeActivity.runOnUiThread(Runnable {
-                        adapter.notifyDataSetChanged()
-                    })
-
-                }
-
-            }
-
-        })
-
-    }
-
-
     private fun downloadContent() {
 
         val request = Request.Builder()
@@ -100,16 +68,25 @@ class AnimeActivity : AppCompatActivity() {
                     val jsonAnime: JSONArray = jsonResponse.getJSONArray("data")
                     for (i in 0 until jsonAnime.length()) {
 
-                        val jsonAnime = jsonAnime.getJSONObject(i)
+                        val jsonAnimeItem = jsonAnime.getJSONObject(i)
 
-                        jsonAnime.getString("anime_name").split('_').map { it.capitalize() }.joinToString()
-                        downloadImage(
+//                        downloadImage(
+//                            Anime(
+//                                jsonAnimeItem.getInt("anime_id"),
+//                                jsonAnimeItem.getString("anime_name")
+//                            ),
+//                            jsonAnimeItem.getString("anime_img")
+//                        )
+                        adapter.addData(
                             Anime(
-                                jsonAnime.getInt("anime_id"),
-                                jsonAnime.getString("anime_name")
-                            ),
-                            jsonAnime.getString("anime_img")
+                                jsonAnimeItem.getInt("anime_id"),
+                                jsonAnimeItem.getString("anime_name"),
+                                jsonAnimeItem.getString("anime_img")
+                            )
                         )
+                        this@AnimeActivity.runOnUiThread(Runnable {
+                            adapter.notifyDataSetChanged()
+                        })
 
                     }
 

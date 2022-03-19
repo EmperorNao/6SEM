@@ -53,11 +53,11 @@ class FactsActivity : AppCompatActivity() {
                         val jsonFact = jsonFacts.getJSONObject(i)
 
                         adapter.addData(jsonFact.getString("fact"))
-                        this@FactsActivity.runOnUiThread(Runnable {
-                            adapter.notifyDataSetChanged()
-                        })
 
                     }
+                    this@FactsActivity.runOnUiThread(Runnable {
+                        adapter.notifyDataSetChanged()
+                    })
 
                 }
 
