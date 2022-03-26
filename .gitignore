@@ -4,8 +4,7 @@
 *.pdf
 *.pyc
 *./__pycache__/
-*.xml
-
+*build/
 
 # CS
 
