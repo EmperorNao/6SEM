@@ -1,0 +1,13 @@
+
+#### Server
+
+- open first thread
+
+
+
+#### Client
+
+- read from config server IP and socket
+- create socket
+- send to server message
+- recv from server message
