@@ -36,7 +36,7 @@ def load_file(fname, satellite, ts):
                 data['time']['t_oe'] = data['t_oe']
                 data['t_oe_mod'] = data['t_oe'] % 86400
                 #if data['t_oe_mod'] >= data['t_oe']
-                data['eps'] = 1e-6
+                data['eps'] = 1e-9
 
                 return data
 
