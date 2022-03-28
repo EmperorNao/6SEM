@@ -49,7 +49,7 @@ private:
 public:
     FileSendable(std::string filename_) : filename(filename_) {
 
-        std::ifstream ifs(filename);
+        std::ifstream ifs(filename, std::ios::binary);
         std::string str((std::istreambuf_iterator<char>(ifs)),
             (std::istreambuf_iterator<char>()));
 
@@ -59,8 +59,7 @@ public:
 
     void save() {
 
-        std::ofstream file;
-        file.open(filename);
+        std::ofstream file(filename, std::ios::binary);
         for (int i = 0; i < content.size(); ++i) {
             file << content[i];
         }

@@ -1,7 +1,7 @@
 #pragma once
 #include <winsock2.h>
 
-enum class ConnType { UDP, IP };
+enum class ConnType { UDP, IP, TCP };
 
 class Socket {
 

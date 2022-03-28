@@ -18,6 +18,8 @@
 #include "ISenadble.hpp"
 #include "Socket.hpp"
 
+#include "easyloggingpp/src/easylogging++.h"
+
 
 
 class ConnectionManager {
@@ -126,13 +128,13 @@ public:
     }
 
 
-    void listening_and_sending(std::shared_ptr<ISendable>& obj) {
+    static void listening_and_sending(std::shared_ptr<ISendable>& obj) {
 
         //struct sockaddr_i recvaddr;
         //struct sockaddr addr;
         //int addrlen = sizeof(addr);
         //int recvlen = sizeof(recvaddr);
-        Socket main_socket(ConnType::IP);
+        Socket main_socket(ConnType::TCP);
         listen(main_socket.get_descriptor(), SOMAXCONN);
 
         int i = 0;
@@ -141,14 +143,12 @@ public:
             struct sockaddr addr;
             int len = sizeof(addr);
             SOCKET accept_descriptor;
-            std::cout << "Waiting for accept" << std::endl;
             accept_descriptor = accept(main_socket.get_descriptor(), &addr, &len);
             if (accept_descriptor == INVALID_SOCKET) {
                 throw std::domain_error("Error in socket accept " + std::to_string(WSAGetLastError()));
             }
             std::shared_ptr<Socket> accept_socket = std::make_shared<Socket>(accept_descriptor);
 
-            std::cout << "Accepted new connection" << std::endl;
             std::thread t(send_with_socket, std::ref(obj), accept_socket);
             t.detach();
             
@@ -160,28 +160,21 @@ public:
 
     static struct sockaddr_in recieve(bool log=true, int port=0) {
 
-        Socket s(ConnType::IP);
+        Socket s(ConnType::TCP);
         char RecvBuf[packet_size];
 
         struct sockaddr_in SenderAddr;
         int SenderAddrSize = sizeof(SenderAddr);
 
-        if (log) {
-            std::cout << "Waiting datagram\n";
-        }
         if (recvfrom(s.get_descriptor(), RecvBuf, packet_size, 0, (SOCKADDR*)&SenderAddr, &SenderAddrSize) == SOCKET_ERROR) {
             throw std::domain_error("Error in recfrom " + err());
         }
-        printf("%s\n", RecvBuf);
 
     }
 
 
     static void send_with_socket(std::shared_ptr<ISendable>& obj, std::shared_ptr<Socket> s) {
 
-        printf("New thread creating send with socket\n");
-
-        std::cout << "Sending a datagram" << std::endl;
 
         auto data = obj->split(ConnectionManager::packet_size);
 
@@ -189,25 +182,22 @@ public:
 
         for (auto buf : data) {
 
-            std::cout << "sendto" << std::endl;
             if (send(
                 s->get_descriptor(),
                 reinterpret_cast<char*>(buf.data()),
                 ConnectionManager::packet_size,
                 0) == SOCKET_ERROR) {
-                //throw std::domain_error("Error during sendto " + err());
-                std::cout << "Error during sendto " + err() << std::endl;
+                throw std::domain_error("Error during sendto " + err());
             }
+            LOG(INFO) << "Sended";
 
         }
-        std::cout << "Finishing sending" << std::endl;
 
     }
 
 
     static int send_(std::shared_ptr<ISendable>& obj, std::string addr, USHORT port) {
   
-        printf("New thread creating\n");
         sockaddr_in RecvAddr;
 
         const int len = 1024;
@@ -219,7 +209,6 @@ public:
         RecvAddr.sin_port = htons(port);
         RecvAddr.sin_addr.s_addr = inet_addr(addr.c_str());
 
-        std::cout << "Sending a datagram" << std::endl;
 
         auto data = obj->split(len);
 
@@ -227,7 +216,6 @@ public:
 
         for (auto buf : obj->split(len)) {
 
-            std::cout << "sendto" << std::endl;
             if (sendto(
                 sendSocket.get_descriptor(), 
                 reinterpret_cast<char*>(buf.data()), 
@@ -239,7 +227,6 @@ public:
             }
 
         }
-        std::cout << "Finishing sending" << std::endl;
 
     }
 
@@ -262,20 +249,17 @@ public:
             throw std::domain_error("Error in recfrom " + err());
         }
 
-        std::shared_ptr<FileSendable> obj = std::make_shared<FileSendable>("outp.txt");
+        std::shared_ptr<FileSendable> obj = std::make_shared<FileSendable>(filename);
         int i = 0;
         while (true) {
             if (recv(s.get_descriptor(), recvbuf, ConnectionManager::packet_size, 0) <= 0) {
                 break;
             }
+            LOG(INFO) << "Recieved";
             obj->append(recvbuf, ConnectionManager::packet_size);
-            printf("%s\n", recvbuf);
-            printf("gotonext\n");
             i++;
-            printf("Recieved %i", i);
         };
         obj->save();
-        printf("saved\n");
     }
 
 };

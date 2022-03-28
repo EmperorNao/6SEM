@@ -10,6 +10,9 @@ Socket::Socket(enum class ConnType sockType, bool listening, bool for_all, USHOR
     else if (sockType == ConnType::IP) {
         socket_descriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     }
+    else if (sockType == ConnType::TCP) {
+        socket_descriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    }
     else {
         throw std::invalid_argument("Wrong connection type");
     }

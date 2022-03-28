@@ -1,52 +1,50 @@
 #include "ConnectionManager.hpp"
+#include "argparse/include/argparse/argparse.hpp"
+#include "Server.hpp"
+#include "Client.hpp"
+
+INITIALIZE_EASYLOGGINGPP
 
 
-int main() {
+
+int main(int argc, char* argv[]) {
 
 
+    std::cout << "OK" << std::endl;
+    argparse::ArgumentParser program("main");
+
+    program.add_argument("--verbose")
+        .help("increase output verbosity")
+        .default_value(false)
+        .implicit_value(true);
 
 
-    //ConnectionManager manager;
-    //Socket s;
-    //if (s.is_valid()) {
-    //    std::cout << "socket is ok" << std::endl;
-    //}
+    program.parse_args(argc, argv);
+
+
+    if (program["--verbose"] == true) {
+
+        std::cout << "verbose is in" << std::endl;
+
+    }
+
+
     try {
 
-        /*Socket sforall(ConnType::UDP, true);*/
         int type = 0;
         std::cout << "Server/Client (1/0)" << std::endl;
         std::cin >> type;
-        //std::cout <<
         ConnectionManager manager;
         if (type) {
-            std::shared_ptr<ISendable> obj = std::make_shared<FileSendable>("P:\\D\\6SEM\\CS\\labs\\lab3\\ConnectionManager.hpp");
-            //manager.recieve();
-            //manager.send(obj, "127.0.0.1", 27015);
-            manager.listening_and_sending(obj);
-            //manager.connect("127.0.0.1", 8080);
-            //manager.send(obj, {}, /*send_for_all*/true);
+            el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\serverlogger");
+            el::Loggers::reconfigureAllLoggers(conf);
+            Server::run("p:\\D\\Pictures\\My\\Yandex.png");
         }
         else {
-            manager.recieve_some("outp_filename", "127.0.0.1", 27015);
+            el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\clientlogger");
+            el::Loggers::reconfigureAllLoggers(conf);
+            Client::run("MyPhoto.png", "127.0.0.1", 27015);
         }
-
-
-        WSADATA data;
-        char name[100];
-        int namelen;
-        //std::cout << "Name is " << host->h_name << std::endl;
-
-        struct in_addr addr;
-        auto addresses = manager.get_local_addresses();
-        for (auto&& addr_val : addresses) {
-
-            addr.s_addr = addr_val;
-            std::cout << inet_ntoa(addr) << std::endl;
-
-        }
-
-        //std::cout << "Readed" << std::endl;
 
     }
     catch(std::exception & e) {
@@ -56,5 +54,6 @@ int main() {
     }
 
     system("pause");
+
 
 }
