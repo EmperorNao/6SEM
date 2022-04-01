@@ -13,15 +13,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/anime_image_height"
-            android:layout_alignParentTop="true">
-
-        </ImageView>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/text"
@@ -29,10 +22,18 @@
             android:layout_height="@dimen/anime_text_height"
             android:textSize="@dimen/anime_text_size"
             android:textColor="@color/black"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:fontFamily="serif"
             >
         </TextView>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_image_height"
+            android:layout_alignParentBottom="true">
+
+        </ImageView>
 
     </RelativeLayout>
 

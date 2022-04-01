@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="anime_names">
+        <item>SAO|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>KnB|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>AOT|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>SAO2|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>KnB2|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>AOT2|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>SAO3|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>KnB3|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>AOT3|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>SAO4|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>KnB4|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+        <item>AOT4|P:\\D\\6SEM\\MOB\\labs\\AnimeApp\\app\\src\\main\\res\\drawable-v24\\test1.png</item>
+    </string-array>
+</resources>
