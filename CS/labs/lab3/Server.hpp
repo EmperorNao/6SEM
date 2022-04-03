@@ -13,4 +13,13 @@ public:
 
 	}
 
+
+	static void run_without_connections(std::string file) {
+
+		std::shared_ptr<ISendable> obj = std::make_shared<FileSendable>(file);
+		ConnectionManager(ConnType::UDP).listening_and_sending(obj);
+
+	}
+
+
 };
