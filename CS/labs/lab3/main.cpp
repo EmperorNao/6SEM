@@ -21,10 +21,12 @@ int main(int argc, char* argv[]) {
 
     program.parse_args(argc, argv);
 
-
+    bool logging = false;
     if (program["--verbose"] == true) {
 
+        logging = true;
         std::cout << "verbose is in" << std::endl;
+
 
     }
 
@@ -34,15 +36,19 @@ int main(int argc, char* argv[]) {
         int type = 0;
         std::cout << "Server/Client (1/0)" << std::endl;
         std::cin >> type;
-        ConnectionManager manager;
+        //ConnectionManager manager;
         if (type) {
-            el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\serverlogger");
-            el::Loggers::reconfigureAllLoggers(conf);
+            if (!logging) {
+                el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\serverlogger");
+                el::Loggers::reconfigureAllLoggers(conf);
+            }
             Server::run("p:\\D\\Pictures\\My\\Yandex.png");
         }
         else {
-            el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\clientlogger");
-            el::Loggers::reconfigureAllLoggers(conf);
+            if (!logging) {
+                el::Configurations conf("P:\\D\\6SEM\\CS\\labs\\lab3\\clientlogger");
+                el::Loggers::reconfigureAllLoggers(conf);
+            }
             Client::run("MyPhoto.png", "127.0.0.1", 27015);
         }
 

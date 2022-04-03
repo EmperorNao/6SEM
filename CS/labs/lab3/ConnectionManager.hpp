@@ -30,10 +30,11 @@ private:
     unsigned long port = 0;
     //Socket socket;
     static int const packet_size = 1024;
+    ConnType connType;
 
 public:
 
-    //ConnectionManager(Socket& s) {
+    ConnectionManager(ConnType connType_) : connType(connType_) {}
 
     //    WSADATA data;
     //    if (WSAStartup(MAKEWORD(2, 2), &data) != NO_ERROR) {
@@ -128,13 +129,17 @@ public:
     }
 
 
-    static void listening_and_sending(std::shared_ptr<ISendable>& obj) {
+    void listening_and_sending(std::shared_ptr<ISendable>& obj) {
 
+
+        if (!(connType == ConnType::IP or connType == ConnType::TCP)) {
+            throw std::domain_error("Wrong conn type provided for listening_and_sending: " + std::to_string(WSAGetLastError()));
+        }
         //struct sockaddr_i recvaddr;
         //struct sockaddr addr;
         //int addrlen = sizeof(addr);
         //int recvlen = sizeof(recvaddr);
-        Socket main_socket(ConnType::TCP);
+        Socket main_socket(connType);
         listen(main_socket.get_descriptor(), SOMAXCONN);
 
         int i = 0;
@@ -158,19 +163,23 @@ public:
     }
 
 
-    static struct sockaddr_in recieve(bool log=true, int port=0) {
+    //struct sockaddr_in recieve(bool log=true, int port=0) {
 
-        Socket s(ConnType::TCP);
-        char RecvBuf[packet_size];
+    //    if (!(connType == ConnType::IP or connType == ConnType::TCP)) {
+    //        throw std::domain_error("Wrong conn type provided for listening_and_sending: " + std::to_string(WSAGetLastError()));
+    //    }
 
-        struct sockaddr_in SenderAddr;
-        int SenderAddrSize = sizeof(SenderAddr);
+    //    Socket s(connType);
+    //    char RecvBuf[packet_size];
 
-        if (recvfrom(s.get_descriptor(), RecvBuf, packet_size, 0, (SOCKADDR*)&SenderAddr, &SenderAddrSize) == SOCKET_ERROR) {
-            throw std::domain_error("Error in recfrom " + err());
-        }
+    //    struct sockaddr_in SenderAddr;
+    //    int SenderAddrSize = sizeof(SenderAddr);
 
-    }
+    //    if (recvfrom(s.get_descriptor(), RecvBuf, packet_size, 0, (SOCKADDR*)&SenderAddr, &SenderAddrSize) == SOCKET_ERROR) {
+    //        throw std::domain_error("Error in recfrom " + err());
+    //    }
+
+    //}
 
 
     static void send_with_socket(std::shared_ptr<ISendable>& obj, std::shared_ptr<Socket> s) {
@@ -196,14 +205,18 @@ public:
     }
 
 
-    static int send_(std::shared_ptr<ISendable>& obj, std::string addr, USHORT port) {
+    int send_(std::shared_ptr<ISendable>& obj, std::string addr, USHORT port) {
   
+        if (!(connType == ConnType::UDP)) {
+            throw std::domain_error("Wrong conn type provided for send_: " + std::to_string(WSAGetLastError()));
+        }
+
         sockaddr_in RecvAddr;
 
         const int len = 1024;
 
 
-        Socket sendSocket(ConnType::UDP, false);
+        Socket sendSocket(connType, false);
 
         RecvAddr.sin_family = AF_INET;
         RecvAddr.sin_port = htons(port);
@@ -231,7 +244,11 @@ public:
     }
 
 
-    static void recieve_some(std::string filename, std::string addr, USHORT port) {
+    void recieve(std::string filename, std::string addr, USHORT port) {
+
+        if (!(connType == ConnType::IP or connType == ConnType::TCP)) {
+            throw std::domain_error("Wrong conn type provided for listening_and_sending: " + std::to_string(WSAGetLastError()));
+        }
 
         sockaddr_in clientService;
         clientService.sin_family = AF_INET;
@@ -239,14 +256,14 @@ public:
         clientService.sin_port = htons(port);
 
         char recvbuf[ConnectionManager::packet_size];
-        Socket s(ConnType::IP, false);
+        Socket s(connType, false);
         char RecvBuf[packet_size];
 
         struct sockaddr_in SenderAddr;
         int SenderAddrSize = sizeof(SenderAddr);
 
         if (connect(s.get_descriptor(), (SOCKADDR*)&clientService, sizeof(clientService)) == SOCKET_ERROR) {
-            throw std::domain_error("Error in recfrom " + err());
+            throw std::domain_error("Error in rec" + err());
         }
 
         std::shared_ptr<FileSendable> obj = std::make_shared<FileSendable>(filename);

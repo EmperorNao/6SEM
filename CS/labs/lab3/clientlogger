@@ -1,5 +1,5 @@
 * GLOBAL:
-   FILENAME             =  "P:\\D\\6SEM\\CS\\labs\\lab3\\clientlog"
+   FILENAME             =  "clientlog"
    ENABLED              =  true
    TO_FILE              =  true
    TO_STANDARD_OUTPUT   =  false
