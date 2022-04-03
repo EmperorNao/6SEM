@@ -9,10 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.*
+import java.io.File
 import java.io.IOException
 
 
-val client = OkHttpClient()
 
 
 class AnimeViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -34,12 +34,14 @@ class AnimeViewHolder(itemView: View, private val onItemClicked: (position: Int)
 }
 
 
-class AnimeAdapter(_anime: MutableList<Anime>, private val onItemClicked: (position: Int) -> Unit): RecyclerView.Adapter<AnimeViewHolder>() {
+class AnimeAdapter(client :OkHttpClient, _anime: MutableList<Anime>, private val onItemClicked: (position: Int) -> Unit): RecyclerView.Adapter<AnimeViewHolder>() {
 
-    var anime: MutableList<Anime> = mutableListOf<Anime>()
+    var anime: MutableList<Anime> = mutableListOf()
+    var client: OkHttpClient
 
     init {
         anime = _anime
+        this.client = client
     }
 
     override fun getItemCount(): Int {

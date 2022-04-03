@@ -1,8 +1,10 @@
 package com.example.animeapp
 
 import android.graphics.Bitmap
+import androidx.room.Entity
 
 
+@Entity
 class Anime(_id: Int, name: String, url: String) {
 
     var name: String = ""

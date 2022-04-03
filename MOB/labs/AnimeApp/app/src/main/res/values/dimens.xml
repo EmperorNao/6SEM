@@ -3,10 +3,11 @@
     <dimen name="anime_height">250dp</dimen>
     <dimen name="anime_padding">2dp</dimen>
     <dimen name="anime_image_height">200dp</dimen>
-    <dimen name="anime_text_height">45dp</dimen>
+    <dimen name="anime_text_height">25dp</dimen>
     <dimen name="anime_text_size">18dp</dimen>
     <dimen name="facts_margin">5dp</dimen>
     <dimen name="facts_text_size">20dp</dimen>
+    <dimen name="info_width">100dp</dimen>
 
-    <integer name="nrows">3</integer>
+    <integer name="nrows">1</integer>
 </resources>

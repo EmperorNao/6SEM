@@ -41,7 +41,7 @@ class AnimeActivity : AppCompatActivity() {
     private fun onListItemClick(position: Int) {
 
         val intent = Intent(this, FactsActivity::class.java)
-        intent.putExtra("anime_name", anime[position].get_name() );
+        intent.putExtra("id", anime[position].get_id() );
         startActivity(intent)
 
     }
@@ -50,7 +50,7 @@ class AnimeActivity : AppCompatActivity() {
     private fun downloadContent() {
 
         val request = Request.Builder()
-            .url("https://anime-facts-rest-api.herokuapp.com/api/v1")
+            .url("https://www.mmobomb.com/api1/games")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -63,9 +63,9 @@ class AnimeActivity : AppCompatActivity() {
 
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                    val jsonResponse = JSONObject(response.body!!.string())
+                    //val jsonResponse = JSONArray(response.body!!.string()).getJSONObject(0)
 
-                    val jsonAnime: JSONArray = jsonResponse.getJSONArray("data")
+                    val jsonAnime: JSONArray = JSONArray(response.body!!.string())
                     for (i in 0 until jsonAnime.length()) {
 
                         val jsonAnimeItem = jsonAnime.getJSONObject(i)
@@ -79,9 +79,9 @@ class AnimeActivity : AppCompatActivity() {
 //                        )
                         adapter.addData(
                             Anime(
-                                jsonAnimeItem.getInt("anime_id"),
-                                jsonAnimeItem.getString("anime_name"),
-                                jsonAnimeItem.getString("anime_img")
+                                jsonAnimeItem.getInt("id"),
+                                jsonAnimeItem.getString("title"),
+                                jsonAnimeItem.getString("thumbnail")
                             )
                         )
                         this@AnimeActivity.runOnUiThread(Runnable {

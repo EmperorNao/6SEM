@@ -1,41 +1,51 @@
 package com.example.mmoapp
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import okhttp3.*
+import okhttp3.internal.cache.CacheInterceptor
 import org.json.JSONArray
-import org.json.JSONObject
+import java.io.File
 import java.io.IOException
-import kotlin.collections.Map
-import kotlin.collections.MutableList
-import kotlin.collections.MutableMap
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
-import kotlin.collections.set
-import kotlin.collections.toTypedArray
 
 
 class AnimeActivity : AppCompatActivity() {
 
     var anime: MutableList<Anime> = mutableListOf<Anime>()
-    var adapter: AnimeAdapter = AnimeAdapter(anime, {position -> onListItemClick(position) })
-    val client = OkHttpClient()
-    val db = Room.databaseBuilder(applicationContext, AnimeDatabase::class.java, "anime").build()
-    val animeDao = db.animeDao()
+    lateinit var client: OkHttpClient
+    lateinit var adapter: AnimeAdapter
+
+
+
+    lateinit var db: AnimeDatabase
+    lateinit var animeDao: AnimeDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anime)
 
+
+        var httpCacheDirectory: File = File(applicationContext.cacheDir, "http-cache")
+        var cacheSize = 300L * 1024 * 1024 // 300 MiB
+        client = OkHttpClient.Builder()
+        .cache(Cache(
+            directory = httpCacheDirectory,
+            maxSize = cacheSize // 10 MiB
+        ))
+        .build()
+        adapter = AnimeAdapter(client, anime, {position -> onListItemClick(position) })
+
+        db = Room.databaseBuilder(applicationContext, AnimeDatabase::class.java, "anime").build()
+        animeDao = db.animeDao()
+
         val recyclerView = findViewById<RecyclerView>(R.id.main_recycler)
         recyclerView.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.nrows))
         recyclerView.adapter = adapter
+
 
         downloadContent()
 
@@ -98,7 +108,7 @@ class AnimeActivity : AppCompatActivity() {
                             val url = jsonAnimeItem.getString("thumbnail")
                             val platform = jsonAnimeItem.getString("platform")
                             val genre = jsonAnimeItem.getString("genre")
-                            val status = jsonAnimeItem.getString("status")
+                            val status = ""//jsonAnimeItem.getString("status")
                             val developer = jsonAnimeItem.getString("developer")
                             val release = jsonAnimeItem.getString("release_date")
                             val description = jsonAnimeItem.getString("short_description")
@@ -129,11 +139,11 @@ class AnimeActivity : AppCompatActivity() {
                         adapter.addData(
                             anime[i]
                         )
-                        this@AnimeActivity.runOnUiThread(Runnable {
-                            adapter.notifyDataSetChanged()
-                        })
 
                     }
+                    this@AnimeActivity.runOnUiThread(Runnable {
+                        adapter.notifyDataSetChanged()
+                    })
 
 
                 }

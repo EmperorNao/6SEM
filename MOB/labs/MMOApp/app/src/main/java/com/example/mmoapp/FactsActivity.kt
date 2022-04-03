@@ -1,19 +1,20 @@
 package com.example.mmoapp
 
+import android.os.AsyncTask
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import okhttp3.*
-import org.json.JSONObject
 import java.io.IOException
+
+
+
+
 
 
 class FactsActivity : AppCompatActivity() {
 
-    val client = OkHttpClient()
     val facts: MutableList<String> = mutableListOf()
     //val adapter = FactsAdapter(facts)
     var titleView: TextView? = null
@@ -24,12 +25,62 @@ class FactsActivity : AppCompatActivity() {
     var releaseView: TextView? = null
     var descriptionView: TextView? = null
 
-    val db = Room.databaseBuilder(applicationContext, AnimeDatabase::class.java, "anime").build()
-    val animeDao = db.animeDao()
+    lateinit var db: AnimeDatabase
+    lateinit var animeDao: AnimeDao
+    val client = OkHttpClient()
+
+    private inner class LoadFileTask : AsyncTask<Int, Void, Anime>() {
+        override fun doInBackground(vararg p0: Int?): Anime? {
+
+            var arr: IntArray = IntArray(1)
+            arr[0] = p0.get(0) as Int
+            val animes = animeDao.loadAllByIds(arr)
+            if (animes.isNotEmpty()) {
+
+                val obj = animes[0]
+
+                this@FactsActivity.runOnUiThread(Runnable {
+                    titleView?.setText(obj.get_name())
+                    platformView?.setText(obj.get_platform())
+                    genreView?.setText(obj.get_genre())
+                    statusView?.setText(obj.get_status())
+                    developerView?.setText(obj.get_developer())
+                    releaseView?.setText(obj.get_release())
+                    descriptionView?.setText(obj.get_description())
+                })
+
+                return obj
+
+            }
+            else {
+
+                throw Exception("Don't find anime object with id = $arr[0]")
+
+            }
+
+        }
+
+        override fun onPostExecute(obj: Anime) {
+
+            titleView?.setText(obj.get_name())
+            platformView?.setText(obj.get_platform())
+            genreView?.setText(obj.get_genre())
+            statusView?.setText(obj.get_status())
+            developerView?.setText(obj.get_developer())
+            releaseView?.setText(obj.get_release())
+            descriptionView?.setText(obj.get_description())
+
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_facts)
+
+        db = Room.databaseBuilder(applicationContext, AnimeDatabase::class.java, "anime").build()
+        animeDao = db.animeDao()
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 
@@ -58,35 +109,9 @@ class FactsActivity : AppCompatActivity() {
 
         val ids = IntArray(1)
         ids[0] = id
-        val animes = animeDao.loadAllByIds(ids)
-        if (animes.isNotEmpty()) {
 
-            val obj = animes[0]
-            val title = obj.get_name()
-            val platform = obj.get_platform()
-            val genre = obj.get_genre()
-            val status = obj.get_status()
-            val developer = obj.get_developer()
-            val release = obj.get_release()
-            val description = obj.get_description()
+        LoadFileTask().execute(id)
 
-            this@FactsActivity.runOnUiThread(Runnable {
-                titleView?.setText(title)
-                platformView?.setText(platform)
-                genreView?.setText(genre)
-                statusView?.setText(status)
-                developerView?.setText(developer)
-                releaseView?.setText(release)
-                descriptionView?.setText(description)
-            })
-
-
-        }
-        else {
-
-            throw Exception("Don't find anime object with id = $id")
-
-        }
 
         /*val request = Request.Builder()
             .url("https://www.mmobomb.com/api1/game?id=" + id)
