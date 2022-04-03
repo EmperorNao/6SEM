@@ -1,6 +1,6 @@
 
 
-def load_file(fname, satellite, ts):
+def load_navigation(fname, satellite, ts):
 
     data = dict()
     data['time'] = dict()
@@ -41,3 +41,8 @@ def load_file(fname, satellite, ts):
                 return data
 
     raise KeyError("Don't find this format in file")
+
+
+def load_observation(fname, ts):
+
+    pass

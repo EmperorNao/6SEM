@@ -17,7 +17,7 @@ def localise(args):
     # 4
     args['t'] = time_to_GPS(args['time'])
 
-    args['t_k'] = args['t'] - args['t_oe']
+    #args['t_k'] = args['t'] - args['t_oe']
     args['t_k'] = args['t'] - args['t_oe_mod']
 
     if args['t_k'] > 302400:

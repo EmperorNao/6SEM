@@ -1,9 +1,9 @@
 import numpy as np
 from numpy.linalg import norm as L2
 from scipy.optimize import fsolve
+from ..lab1.localisation import localise
 
-
-c = 299 792 458
+c = 299792458
 
 
 class Func:
@@ -22,5 +22,5 @@ class Func:
 
 def solve_navigation(S, X, X_sv, S_, t, delta_t):
 
-    # shape 
+    # shape
     return fsolve(Func(S, X_sv, S_, t, delta_t), np.zeros_like(t))
