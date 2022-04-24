@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/info_fragment"
+    android:name="com.example.mmoapp.InfoFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/title"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/title_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/title_label"
+            android:text="Title: ">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/genre"
+            android:layout_below="@id/title"
+            android:layout_toRightOf="@id/genre_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/genre_label"
+            android:text="Genre: "
+            android:layout_below="@id/title_label">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/status"
+            android:layout_below="@id/genre"
+            android:layout_toRightOf="@id/status_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/status_label"
+            android:text="Status: "
+            android:layout_below="@id/genre_label">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/platform"
+            android:layout_below="@id/status"
+            android:layout_toRightOf="@id/platform_label">
+        </TextView>
+
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/platform_label"
+            android:text="Platform: "
+            android:layout_below="@id/status_label">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/developer"
+            android:layout_below="@id/platform"
+            android:layout_toRightOf="@id/developer_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/developer_label"
+            android:text="Developer: "
+            android:layout_below="@id/platform_label">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/release"
+            android:layout_below="@id/developer"
+            android:layout_toRightOf="@id/release_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/release_label"
+            android:text="RELEASE: "
+            android:layout_below="@id/developer_label">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/description"
+            android:layout_below="@id/release"
+            android:layout_toRightOf="@id/release_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="@dimen/info_width"
+            android:layout_height="@dimen/anime_text_height"
+            android:textSize="@dimen/anime_text_size"
+            android:textColor="@color/black"
+            android:fontFamily="serif"
+            android:id="@+id/description_label"
+            android:text="Description: "
+            android:layout_below="@id/release_label">
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+</FrameLayout>
