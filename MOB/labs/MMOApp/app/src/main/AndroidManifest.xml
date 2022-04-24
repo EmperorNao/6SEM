@@ -9,10 +9,11 @@
         android:label="MMOApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AnimeApp"
+        android:theme="@style/Theme.MMOApp"
         android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".AnimeActivity"
+            android:name=".GameActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +25,9 @@
         <activity android:name=".FactsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AnimeActivity" />
+                android:value=".GameActivity" />
         </activity>
+
     </application>
 
 </manifest>

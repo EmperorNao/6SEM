@@ -1,11 +1,10 @@
 package com.example.mmoapp
 
-import android.graphics.Bitmap
 import androidx.room.*
 
 
 @Entity
-class Anime(id: Int, title: String, url: String) {
+class Game(id: Int, title: String, url: String) {
 
     @PrimaryKey var id: Int
     @ColumnInfo(name="title") var title: String
@@ -100,26 +99,25 @@ class Anime(id: Int, title: String, url: String) {
 
 }
 
-
-
 @Dao
-interface AnimeDao {
-    @Query("SELECT * FROM Anime")
-    fun getAll(): MutableList<Anime>
+interface GameDao {
+    @Query("SELECT * FROM Game")
+    fun getAll(): MutableList<Game>
 
-    @Query("SELECT * FROM Anime WHERE id IN (:AnimeIds)")
-    fun loadAllByIds(AnimeIds: IntArray): List<Anime>
+    @Query("SELECT * FROM Game WHERE id IN (:GameIds)")
+    fun loadAllByIds(GameIds: IntArray): List<Game>
+
+    @Query("SELECT * FROM Game WHERE id == (:GameId) LIMIT 1")
+    fun loadById(GameId: Int): Game?
 
     @Insert
-    fun insertAll(animes: MutableList<Anime>)
+    fun insertAll(Games: MutableList<Game>)
 
     @Delete
-    fun delete(Anime: Anime)
+    fun delete(Game: Game)
 }
 
-
-
-@Database(entities = [Anime::class], version = 1)
-abstract class AnimeDatabase : RoomDatabase() {
-    abstract fun animeDao(): AnimeDao
+@Database(entities = [Game::class], version = 1)
+abstract class GameDatabase : RoomDatabase() {
+    abstract fun gameDao(): GameDao
 }

@@ -17,23 +17,21 @@ import java.io.IOException
 
 interface ListUser {
 
-    public fun selectItem(id: Int)
+    fun selectItem(id: Int)
 
 }
 
 
 class ListFragment: Fragment() {
 
-
-    var anime: MutableList<Anime> = mutableListOf<Anime>()
-    lateinit var client: OkHttpClient
-    lateinit var adapter: AnimeAdapter
+    private lateinit var client: OkHttpClient
+    private lateinit var adapter: GameAdapter
 
 
+    private lateinit var db: GameDatabase
+    private lateinit var gameDao: GameDao
+    private lateinit var activity: ListUser
 
-    lateinit var db: AnimeDatabase
-    lateinit var animeDao: AnimeDao
-    lateinit var activity: ListUser
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,39 +42,40 @@ class ListFragment: Fragment() {
         )
     }
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         try {
             activity = context as ListUser
         } catch (e: ClassCastException ) {
-            throw ClassCastException(activity.toString() + " must implement ListUser")
+            throw ClassCastException("$activity must implement ListUser")
         }
-    }
 
+    }
 
     override fun onStart() {
         super.onStart()
 
-        var httpCacheDirectory: File = File(requireActivity().applicationContext.cacheDir, "http-cache")
-        var cacheSize = 300L * 1024 * 1024 // 300 MiB
-        client = OkHttpClient.Builder()
-            .cache(
+        client = OkHttpClient.Builder().cache(
                 Cache(
-                directory = httpCacheDirectory,
-                maxSize = cacheSize // 10 MiB
-            )
-            )
-            .build()
-        adapter = AnimeAdapter(client, anime, {position -> activity.selectItem(anime[position].get_id()) })
+                directory = File(requireActivity().applicationContext.cacheDir, "http-cache"),
+                maxSize = 300L * 1024 * 1024 // 300 MiB
+                )
+            ).build()
 
-        db = Room.databaseBuilder(requireActivity().applicationContext, AnimeDatabase::class.java, "anime").build()
-        animeDao = db.animeDao()
+
+        adapter = GameAdapter(client)
+        { position -> activity.selectItem(adapter.getData()[position].get_id()) }
+
+
+        db = Room.databaseBuilder(requireActivity().applicationContext, GameDatabase::class.java, "Game").build()
+        gameDao = db.gameDao()
+
 
         val recyclerView = requireActivity().findViewById<RecyclerView>(R.id.main_recycler)
         recyclerView.layoutManager = GridLayoutManager(getActivity(), resources.getInteger(R.integer.nrows))
         recyclerView.adapter = adapter
+
 
         downloadContent()
 
@@ -93,21 +92,6 @@ class ListFragment: Fragment() {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
 
-
-
-                var anime: MutableList<Anime> = animeDao.getAll()
-
-                for (i in 0 until anime.size) {
-
-                    adapter.addData(
-                        anime[i]
-                    )
-
-                }
-                requireActivity().runOnUiThread(Runnable {
-                    adapter.notifyDataSetChanged()
-                })
-
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -115,30 +99,27 @@ class ListFragment: Fragment() {
 
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                    //val jsonResponse = JSONArray(response.body!!.string()).getJSONObject(0)
+                    val jsonData = JSONArray(response.body!!.string())
+                    var games: MutableList<Game> = gameDao.getAll()
 
-                    val jsonAnime: JSONArray = JSONArray(response.body!!.string())
+                    if (jsonData.length() != games.size) {
 
-                    var anime: MutableList<Anime> = animeDao.getAll()
+                        games = mutableListOf()
+                        for (i in 0 until jsonData.length()) {
 
-                    if (jsonAnime.length() != anime.size) {
+                            val jsonGame = jsonData.getJSONObject(i)
 
-                        anime = mutableListOf<Anime>()
-                        for (i in 0 until jsonAnime.length()) {
+                            val id = jsonGame.getInt("id")
+                            val title = jsonGame.getString("title")
+                            val url = jsonGame.getString("thumbnail")
+                            val platform = jsonGame.getString("platform")
+                            val genre = jsonGame.getString("genre")
+                            val status = ""//jsonGame.getString("status")
+                            val developer = jsonGame.getString("developer")
+                            val release = jsonGame.getString("release_date")
+                            val description = jsonGame.getString("short_description")
 
-                            val jsonAnimeItem = jsonAnime.getJSONObject(i)
-
-                            val id = jsonAnimeItem.getInt("id")
-                            val title = jsonAnimeItem.getString("title")
-                            val url = jsonAnimeItem.getString("thumbnail")
-                            val platform = jsonAnimeItem.getString("platform")
-                            val genre = jsonAnimeItem.getString("genre")
-                            val status = ""//jsonAnimeItem.getString("status")
-                            val developer = jsonAnimeItem.getString("developer")
-                            val release = jsonAnimeItem.getString("release_date")
-                            val description = jsonAnimeItem.getString("short_description")
-
-                            var obj: Anime = Anime(
+                            val obj = Game(
                                 id,
                                 title,
                                 url
@@ -151,24 +132,18 @@ class ListFragment: Fragment() {
                             obj.set_status(status)
                             obj.set_release(release)
 
-                            anime.add(obj)
+                            games.add(obj)
 
                         }
 
-                        animeDao.insertAll(anime)
+                        gameDao.insertAll(games)
 
                     }
 
-                    for (i in 0 until anime.size) {
-
-                        adapter.addData(
-                            anime[i]
-                        )
-
-                    }
-                    requireActivity().runOnUiThread(Runnable {
+                    adapter.setData(games)
+                    requireActivity().runOnUiThread {
                         adapter.notifyDataSetChanged()
-                    })
+                    }
 
                 }
 

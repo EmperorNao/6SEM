@@ -9,40 +9,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import okhttp3.*
-import org.json.JSONArray
-import java.io.File
-import java.io.IOException
 
 
 interface InfoUser {
 
-    fun get_cur_id(): Int
+    fun currentId(): Int
 
 }
 
 
-class InfoFragment(): Fragment() {
+class InfoFragment : Fragment() {
 
-    lateinit var listener: InfoUser
+    private lateinit var listener: InfoUser
+
+    lateinit var titleView: TextView
+    lateinit var platformView: TextView
+    lateinit var genreView: TextView
+    lateinit var statusView: TextView
+    lateinit var developerView: TextView
+    lateinit var releaseView: TextView
+    lateinit var descriptionView: TextView
 
 
+    private lateinit var db: GameDatabase
+    private lateinit var gameDao: GameDao
 
-
-    val facts: MutableList<String> = mutableListOf()
-    var titleView: TextView? = null
-    var platformView: TextView? = null
-    var genreView: TextView? = null
-    var statusView: TextView? = null
-    var developerView: TextView? = null
-    var releaseView: TextView? = null
-    var descriptionView: TextView? = null
-
-    lateinit var db: AnimeDatabase
-    lateinit var animeDao: AnimeDao
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -65,95 +57,56 @@ class InfoFragment(): Fragment() {
 
     }
 
-
     override fun onStart() {
         super.onStart()
 
+        titleView = requireActivity().findViewById(R.id.title)
+        platformView = requireActivity().findViewById(R.id.platform)
+        genreView = requireActivity().findViewById(R.id.genre)
+        statusView = requireActivity().findViewById(R.id.status)
+        developerView = requireActivity().findViewById(R.id.developer)
+        releaseView = requireActivity().findViewById(R.id.release)
+        descriptionView = requireActivity().findViewById(R.id.description)
 
-        db = Room.databaseBuilder(requireContext(), AnimeDatabase::class.java, "anime").build()
-        animeDao = db.animeDao()
+        db = Room.databaseBuilder(requireContext(), GameDatabase::class.java, "Game").build()
+        gameDao = db.gameDao()
 
-
-        titleView = requireActivity().findViewById(R.id.title) as TextView?
-        platformView = requireActivity().findViewById(R.id.platform) as TextView?
-        genreView = requireActivity().findViewById(R.id.genre) as TextView?
-        statusView = requireActivity().findViewById(R.id.status) as TextView?
-        developerView = requireActivity().findViewById(R.id.developer) as TextView?
-        releaseView = requireActivity().findViewById(R.id.release) as TextView?
-        descriptionView = requireActivity().findViewById(R.id.description) as TextView?
-
-        downloadContent(listener.get_cur_id())
+        downloadContent(listener.currentId())
 
     }
 
-    private inner class LoadFileTask : AsyncTask<Int, Void, Anime>() {
-        override fun doInBackground(vararg p0: Int?): Anime? {
 
-            var arr: IntArray = IntArray(1)
-            arr[0] = p0.get(0) as Int
-            val animes = animeDao.loadAllByIds(arr)
-            if (animes.isNotEmpty()) {
+    private inner class LoadFileTask : AsyncTask<Int, Void, Game>() {
+        override fun doInBackground(vararg args: Int?): Game {
 
-                val obj = animes[0]
-
-//
-//                titleView?.setText(obj.get_name())
-//                platformView?.setText(obj.get_platform())
-//                genreView?.setText(obj.get_genre())
-//                statusView?.setText(obj.get_status())
-//                developerView?.setText(obj.get_developer())
-//                releaseView?.setText(obj.get_release())
-//                descriptionView?.setText(obj.get_description())
-
-
-                requireActivity().runOnUiThread(Runnable {
-
-                    titleView?.setText(obj.get_name())
-                    platformView?.setText(obj.get_platform())
-                    genreView?.setText(obj.get_genre())
-                    statusView?.setText(obj.get_status())
-                    developerView?.setText(obj.get_developer())
-                    releaseView?.setText(obj.get_release())
-                    descriptionView?.setText(obj.get_description())
-
-
-
-                })
-
+            val obj = gameDao.loadById(args[0] as Int)
+            if (obj != null) {
                 return obj
-
             }
-            else {
-
-                throw Exception("Don't find anime object with id = $arr[0]")
-
-            }
+            throw Exception("Don't find id in DB")
 
         }
 
-        override fun onPostExecute(obj: Anime) {
+        override fun onPostExecute(obj: Game) {
 
-            titleView?.setText(obj.get_name())
-            platformView?.setText(obj.get_platform())
-            genreView?.setText(obj.get_genre())
-            statusView?.setText(obj.get_status())
-            developerView?.setText(obj.get_developer())
-            releaseView?.setText(obj.get_release())
-            descriptionView?.setText(obj.get_description())
+            requireActivity().runOnUiThread {
+
+                titleView.text = obj.get_name()
+                platformView.text = obj.get_platform()
+                genreView.text = obj.get_genre()
+                statusView.text = obj.get_status()
+                developerView.text = obj.get_developer()
+                releaseView.text = obj.get_release()
+                descriptionView.text = obj.get_description()
+
+            }
 
         }
 
     }
 
     private fun downloadContent(id: Int) {
-
-        val ids = IntArray(1)
-        ids[0] = id
-
         LoadFileTask().execute(id)
-
     }
-
-
 
 }
