@@ -21,7 +21,6 @@ def transform_data(s: str) :
 
 
 def realtime(s):
-    print(s)
     spl = s.split()
     return int(spl[3]) * 3600 + int(spl[4]) * 60 + int(spl[5])
 
@@ -59,13 +58,17 @@ if __name__ == '__main__':
 
                 data = load_navigation(nfname, sat, transformeds)
 
-                localise(data)
+                timedelta = -obs['C1'] / c
+                print(timedelta)
+                localise(data, timedelta)
                 X_sv.append(np.array([data['X_SVK'], data['Y_SVK'], data['Z_SVK']]))
-                print(f"{sat}: X = {data['X_SVK']}, Y = {data['Y_SVK']}, Z = {data['Z_SVK']}\n")
-                print(f"{data['a_0'], data['a_1'], data['a_2']}")
+                #print(f"{sat}: X = {data['X_SVK']}, Y = {data['Y_SVK']}, Z = {data['Z_SVK']}\n")
+                #print(f"{data['a_0'], data['a_1'], data['a_2']}")
                 nsats += 1
                 t.append(realtime(transformeds)-obs['C1'] / c)
-                print(obs['C1'])
+
+                #print(obs['C1'])
+
                 S.append(obs['C1'] - correction(data) * c)
                 #print(f" NSATS = {nsats}")
 

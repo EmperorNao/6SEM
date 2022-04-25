@@ -7,7 +7,7 @@ def time_to_GPS(time) -> int:
     return int(time['t_oe'] // 86400) * 86400 + time['hour'] * 3600 + time['minute'] * 60 + time['second']
 
 
-def localise(args):
+def localise(args, timedelta=0):
 
     # preparations
     args['m'] = 3.986005 * 1e14
@@ -17,7 +17,7 @@ def localise(args):
     # 4
     args['t'] = time_to_GPS(args['time'])
 
-    args['t_k'] = args['t'] - args['t_oe']
+    args['t_k'] = args['t'] - args['t_oe'] + timedelta
     #args['t_k'] = args['t'] - args['t_oe_mod']
 
     if args['t_k'] > 302400:
