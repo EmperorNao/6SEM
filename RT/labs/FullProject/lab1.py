@@ -10,6 +10,7 @@ if __name__ == '__main__':
 
     try:
         data = load_navigation(fname, satellite, ts)
+        print(data)
         localise(data)
 
         print(f"SAT № {satellite}")
