@@ -9,6 +9,9 @@
 #include <sstream>
 
 
+int minimum(int a, int b);
+
+
 class ISendable {
 
 protected:
@@ -26,7 +29,7 @@ public:
         for (int i = 0; i < number_of_pieces; ++i) {
 
             std::vector<char> obj;
-            std::copy(content.begin() + i * size, content.begin() + min((i + 1) * size, content.size()), std::back_inserter(obj));
+            std::copy(content.begin() + i * size, content.begin() + minimum((i + 1) * size, content.size()), std::back_inserter(obj));
             outp.push_back(obj);
 
         }

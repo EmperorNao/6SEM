@@ -36,62 +36,6 @@ public:
 
     ConnectionManager(ConnType connType_) : connType(connType_) {}
 
-    //    WSADATA data;
-    //    if (WSAStartup(MAKEWORD(2, 2), &data) != NO_ERROR) {
-    //        
-    //        throw std::domain_error("Error in WSAStartup");
-
-    //    }
-    //    if (!socket.is_valid()) {
-    //        socket = s;
-    //    }
-
-    //}
-
-
-    //void connect(std::string address, unsigned long port) {
-    //    conn_address = address;
-    //    this->port = port;
-    //    socket = Socket(localhost, port);
-    //}
-
-    /*
-    void send(std::shared_ptr<ISendable> object, sockaddr_in address = {}, bool send_for_all = false) {
-
-        if (!socket.is_valid()) {
-            throw std::runtime_error("Socket is invalid when trying to send data");
-        }
-
-        enum class ConnType protocol_type = ConnType::IP;
-        if (send_for_all) {
-            protocol_type = ConnType::UDP;
-            address.sin_family = AF_INET;
-            address.sin_addr.S_un.S_addr = inet_addr("255.255.255.255");
-            address.sin_port = htons(port);
-            socket = Socket(localhost, port, protocol_type, true);
-        }
-        else {
-            socket = Socket(localhost, port, protocol_type);
-        }
-
-
-        auto data = object->data();
-        long long number_of_packets = ceil(data.size() / packet_size);
-        char DATA[packet_size] {0};
-
-        for (std::vector<char> el: object->split(packet_size)) {
-
-            std::copy(el.begin(), el.end(), DATA);
-            if (sendto(socket.get_descriptor(), DATA, packet_size, 0, (sockaddr*)&address, sizeof(sockaddr)) == SOCKET_ERROR) {
-                throw std::domain_error("Failed during sending message " + std::to_string(WSAGetLastError()));
-            }
-
-        }
-
-    }
-    */
-
-
     static std::string err() {
         return std::to_string(WSAGetLastError());
     }

@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 
     program.parse_args(argc, argv);
 
-    bool logging = false;
+    bool logging = true;
     if (program["--verbose"] == true) {
 
         logging = true;

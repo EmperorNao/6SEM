@@ -1,0 +1,15 @@
+# ninja log v5
+7	3925	6726224711553266	CMakeFiles/main.dir/ISendable.cpp.obj	b2dd6c69c95d376c
+14	754	6726224679422794	CMakeFiles/main.dir/t.cpp.obj	dbf033a5f070b7e5
+11	18375	6726224856242131	CMakeFiles/main.dir/main.cpp.obj	dd00cf4ac2c936be
+6	19577	6726224867995669	CMakeFiles/main.dir/easyloggingpp/src/easylogging++.cc.obj	ef4ead7ab0b74658
+1	215	6727013059717413	build.ninja	5aae42ae91fe000d
+12	12347	6726224795956739	CMakeFiles/main.dir/ConnectionManager.cpp.obj	e47dc788be565d40
+9	13256	6726224805081001	CMakeFiles/main.dir/Socket.cpp.obj	dfd99b126e3abac3
+15	358	6726226625026366	CMakeFiles/main.dir/t.obj	a64410a717588e88
+15090	22185	6726226843689516	main.exe	f2dd14ff7f6d5d71
+10	3138	6726226652840365	CMakeFiles/main.dir/ISendable.obj	e148495ffd1a3b2f
+16	10251	6726226724305703	CMakeFiles/main.dir/ConnectionManager.obj	ab8a405594a2ccc2
+13	10665	6726226728582074	CMakeFiles/main.dir/Socket.obj	262642eb6eac4351
+8	13917	6726226761043417	CMakeFiles/main.dir/main.obj	3eb4545616d7a7ea
+11	15090	6726226772720938	CMakeFiles/main.dir/easyloggingpp/src/easylogging++.obj	f742a5e54ce5ec79
